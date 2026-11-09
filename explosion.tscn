@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://bw0y10oayyg71"]
+
+[ext_resource type="Texture2D" uid="uid://bogcxx68bpaxn" path="res://explosion.png" id="1_q7epf"]
+[ext_resource type="Script" uid="uid://ca6lcqiwes06f" path="res://explosion.gd" id="1_vxas0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t4vbm"]
+radius = 2.6701891
+
+[node name="Explosion" type="Area2D" unique_id=830368717]
+collision_layer = 16
+script = ExtResource("1_vxas0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1236557607]
+scale = Vector2(12.04, 11.679999)
+shape = SubResource("CircleShape2D_t4vbm")
+
+[node name="Explosion" type="Sprite2D" parent="." unique_id=632815399]
+scale = Vector2(0.2653666, -0.22688407)
+texture = ExtResource("1_q7epf")
+
+[node name="Timer" type="Timer" parent="." unique_id=1499458893]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

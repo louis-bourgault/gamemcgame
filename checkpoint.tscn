@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b52s10i58uyqx"]
+
+[ext_resource type="Texture2D" uid="uid://dcq5cglk4raiy" path="res://flagicon.png" id="1_luqgl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vw27"]
+size = Vector2(165, 72)
+
+[node name="checkpoint" type="Area2D" unique_id=1438090405]
+collision_layer = 33
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=311389961]
+position = Vector2(-4.5, -2)
+shape = SubResource("RectangleShape2D_5vw27")
+
+[node name="Flagicon" type="Sprite2D" parent="." unique_id=823077945]
+scale = Vector2(0.16578138, 0.14727113)
+texture = ExtResource("1_luqgl")

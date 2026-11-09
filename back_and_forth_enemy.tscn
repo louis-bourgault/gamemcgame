@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://cvklp1x2vr8ey"]
+
+[ext_resource type="Script" uid="uid://bdjt64kv28k03" path="res://back_and_forth_enemy.gd" id="1_8u6g1"]
+[ext_resource type="Texture2D" uid="uid://crbae78ti8mpa" path="res://icon.svg" id="2_uak4s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjnhc"]
+size = Vector2(75, 35)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_66cv7"]
+size = Vector2(77.5, 33)
+
+[node name="back_and_forth_enemy" type="CharacterBody2D" unique_id=1115738925]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource("1_8u6g1")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1154183416]
+scale = Vector2(0.640625, 0.28125)
+texture = ExtResource("2_uak4s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1989001874]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_cjnhc")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=154794666]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1566985909]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_66cv7")
+
+[node name="Label" type="Label" parent="." unique_id=274100277]
+offset_top = -18.0
+offset_right = 40.0
+offset_bottom = 5.0
+
+[node name="explosion_timer" type="Timer" parent="." unique_id=266292575]
+one_shot = true
+
+[node name="respawn_timer" type="Timer" parent="." unique_id=1159969684]
+one_shot = true
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="explosion_timer" to="." method="_on_explosion_timer_timeout"]
+[connection signal="timeout" from="respawn_timer" to="." method="_on_respawn_timer_timeout"]

@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var speed: int = 750
+@export var speed: int = 1300
 var direction: Vector2 = Vector2.RIGHT
 
 # Called when the node enters the scene tree for the first time.
@@ -13,3 +13,10 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	position += direction * speed * delta
 	
+	
+	
+
+
+func _on_body_entered(body: Node2D) -> void:
+	print('bullet die') # Replace with function body.
+	queue_free()

@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 @export var damage: int
 @export var explosion_interval: float = 2
-@export var explosion_power: int = 0
+@export var explosion_power: int = 1
 @export var respawn_interval: float = 5
 var corporal = true
 var soon_respawning = true
@@ -42,7 +42,7 @@ func _on_area_2d_area_entered(body: Node2D) -> void:
 		return
 	
 	print("enemy hit by:", body)
-	
+	print('explosion interval is:', explosion_interval)
 	$explosion_timer.start(explosion_interval)
 	$Sprite2D.hide()
 	$CollisionShape2D.set_deferred("disabled", true)

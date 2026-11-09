@@ -4,7 +4,7 @@ extends CharacterBody2D
 const SPEED = 800.0
 const GROUND_ACCELERATION = 2500.0
 const AIR_ACCELERATION = 1600.0
-const GROUND_FRICTION = 2500
+const GROUND_FRICTION = 5000
 const AIR_FRICTION = 150.0
 const JUMP_VELOCITY = -900.0
 
@@ -13,6 +13,8 @@ const JUMP_VELOCITY = -900.0
 
 var is_invincible: bool = false
 var fired_last: bool = false
+
+var current_checkpoint: Node2D = null
 
 const BULLET_SCENE = preload("res://bullet.tscn")
 @onready var muzzle = $pivot/muzzle
@@ -32,6 +34,11 @@ func _physics_process(delta: float) -> void:
 	# Jump
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	if Input.is_action_just_pressed('checkpoint') and current_checkpoint != null:
+		position = current_checkpoint.global_position
+		velocity.x = 0
+		velocity.y = 0
 
 	# Horizontal movement
 	var direction := Input.get_axis("left", "right")
@@ -115,6 +122,18 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func _on_explosion_area_area_entered(area: Area2D) -> void:
 	print("we have an explosion within range")
 
-	var relative_pos = (global_position - area.global_position).normalized()
+	var relative_pos = (global_position - area.global_position)
+	var norm = relative_pos.normalized()
+	print('relative pos', relative_pos)
+	var distance = relative_pos.x * relative_pos.x + relative_pos.y * relative_pos.y
+	var distance_scale = 1/sqrt(distance/5000)
+	print(distance_scale)
+	if distance_scale > 1:
+		distance_scale = 1
+	velocity += norm * 1000 * area.explosion_power * distance_scale
+	
+	
 
-	velocity += relative_pos * 1000
+func _on_cp_finder_area_entered(area: Area2D) -> void:
+	print('found checkpoint', area)
+	current_checkpoint = area
